@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sai Reeshmitha | Student Project Tracker</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--ink:#182230;--muted:#667085;--line:#e7ebf2;--blue:#3858e9;--purple:#7357e8;--green:#168a63}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink)}
+.top{background:linear-gradient(120deg,#293c9f,#6552d8);color:white;padding:28px 18px 64px}.topinner,.wrap{max-width:1050px;margin:auto}.brand{font-size:13px;opacity:.85;letter-spacing:.12em;text-transform:uppercase;font-weight:700}.top h1{font-size:clamp(27px,5vw,42px);margin:12px 0 8px}.top p{margin:0;opacity:.86}
+.wrap{padding:0 16px 40px;margin-top:-38px}.profile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;align-items:center;gap:16px;box-shadow:0 12px 35px #1b2a5510;flex-wrap:wrap}
+.avatar{width:64px;height:64px;border-radius:17px;background:linear-gradient(135deg,#dfe6ff,#eee5ff);display:grid;place-items:center;color:#3947b8;font-weight:800;font-size:23px}.details{flex:1;min-width:190px}.details h2{margin:0 0 6px;font-size:22px}.meta{display:flex;gap:8px;flex-wrap:wrap}.pill{font-size:12px;font-weight:700;background:#f0f3ff;color:#4051b5;padding:6px 10px;border-radius:999px}.pill.gray{background:#f2f4f7;color:#475467}.stat{padding:8px 14px;border-left:1px solid var(--line);min-width:100px}.stat strong{display:block;font-size:24px}.stat span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:20px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 8px 24px #1b2a5507}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.card h3{margin:0;font-size:18px}.sub{font-size:13px;color:var(--muted);margin-top:5px}
+label{display:block;font-size:13px;font-weight:700;margin:13px 0 7px;color:#344054}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #d7dce5;border-radius:10px;background:white;font:inherit;font-size:14px;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:#7a83ed;box-shadow:0 0 0 3px #e9eaff}textarea{min-height:78px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:10px;padding:11px 15px;background:var(--blue);color:white;font-weight:750;cursor:pointer;font-size:14px}.btn:hover{filter:brightness(.96)}.btn.secondary{background:#eef1ff;color:#3949b7}.btn.small{padding:7px 10px;font-size:12px}.formbtn{width:100%;margin-top:17px}
+.projects{display:grid;gap:12px}.project{border:1px solid var(--line);border-radius:13px;padding:15px}.projecttop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.project h4{margin:0;font-size:15px}.project p{margin:8px 0;color:var(--muted);font-size:13px;line-height:1.45}.status{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;white-space:nowrap}.status.Completed{background:#e6f7ef;color:#13734f}.status.In-Progress{background:#fff3d9;color:#986500}.status.Planned{background:#edf0f5;color:#596579}.projectfoot{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--muted)}.empty{text-align:center;padding:28px 10px;color:var(--muted);border:1px dashed #d9deea;border-radius:12px;font-size:14px}.progressbar{height:7px;background:#eef0f6;border-radius:99px;overflow:hidden;margin-top:9px}.progressbar span{display:block;height:100%;background:linear-gradient(90deg,#4b5ee8,#9270f2);border-radius:99px}.footer{text-align:center;color:#98a2b3;font-size:12px;margin:25px 0 0}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.stat{border-left:0;border-top:1px solid var(--line);padding:12px 0 0;width:100%}.profile{gap:12px}.row{grid-template-columns:1fr}.card{padding:17px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="topinner"><div class="brand">Student workspace</div><h1>Student Project Tracker</h1><p>Plan your ideas. Track your progress. Build something great.</p></div></header>
+<main class="wrap">
+<section class="profile">
+<div class="avatar">SR</div><div class="details"><h2>Sai Reeshmitha</h2><div class="meta"><span class="pill">ECM-E</span><span class="pill gray">USN: R25EP023</span><span class="pill gray">2nd Year · 3rd Semester</span></div></div>
+<div class="stat"><strong id="totalCount">0</strong><span>Total projects</span></div><div class="stat"><strong id="completedCount">0</strong><span>Completed</span></div>
+</section>
+<div class="grid">
+<section class="card"><div class="cardhead"><div><h3>My Projects</h3><div class="sub">Your projects in one place</div></div><button class="btn secondary small" id="clearBtn" type="button">Clear all</button></div><div id="projectList" class="projects"></div></section>
+<section class="card"><div class="cardhead"><div><h3>Add a project</h3><div class="sub">Record a new idea or assignment</div></div></div>
+<form id="projectForm">
+<label for="projectName">Project title *</label><input id="projectName" required maxlength="80" placeholder="e.g. Smart Attendance System"/>
+<div class="row"><div><label for="category">Category</label><select id="category"><option>Academic</option><option>Hardware</option><option>Software</option><option>Research</option><option>Personal</option></select></div><div><label for="statusInput">Status</label><select id="statusInput"><option>Planned</option><option>In-Progress</option><option>Completed</option></select></div></div>
+<label for="description">Description</label><textarea id="description" maxlength="300" placeholder="What is this project about?"></textarea>
+<label for="dueDate">Target date</label><input id="dueDate" type="date"/>
+<button class="btn formbtn" type="submit">+ Add project</button>
+</form>
+</section>
+</div>
+<div class="footer">Student Project Tracker · Sai Reeshmitha · Your changes are saved in this browser</div>
+</main>
+<script>
+const KEY='saiReeshmithaTrackerProjects';
+const starter=[];
+let projects=load();
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
+function save(){localStorage.setItem(KEY,JSON.stringify(projects));render()}
+function render(){
+ const list=document.getElementById('projectList');
+ document.getElementById('totalCount').textContent=projects.length;
+ document.getElementById('completedCount').textContent=projects.filter(p=>p.status==='Completed').length;
+ if(!projects.length){list.innerHTML='<div class="empty">No projects yet.<br/>Add your first project using the form.</div>';return}
+ list.innerHTML=projects.map(p=>`<article class="project"><div class="projecttop"><div><h4>${escapeHtml(p.name)}</h4><div class="sub">${escapeHtml(p.category)}${p.due?' · Target: '+escapeHtml(p.due):''}</div></div><span class="status ${p.status}">${p.status.replace('-',' ')}</span></div>${p.description?`<p>${escapeHtml(p.description)}</p>`:''}<div class="progressbar"><span style="width:${p.status==='Completed'?100:p.status==='In-Progress'?55:10}%"></span></div><div class="projectfoot" style="margin-top:11px"><span>Added ${escapeHtml(p.created)}</span><button class="btn secondary small" onclick="removeProject('${p.id}')">Delete</button></div></article>`).join('');
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.getElementById('projectForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const name=document.getElementById('projectName').value.trim();if(!name)return;
+ projects.unshift({id:Date.now().toString(),name,category:document.getElementById('category').value,status:document.getElementById('statusInput').value,description:document.getElementById('description').value.trim(),due:document.getElementById('dueDate').value,created:new Date().toLocaleDateString()});
+ save();e.target.reset();document.getElementById('projectName').focus();
+});
+function removeProject(id){projects=projects.filter(p=>p.id!==id);save()}
+document.getElementById('clearBtn').addEventListener('click',()=>{if(projects.length&&confirm('Delete all projects?')){projects=[];save()}});
+render();
+</script>
+</body>
+</html>
